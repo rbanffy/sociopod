@@ -8,7 +8,7 @@
   <body>
 {% block userbar %}
     <div id="userbar">
-      username or login options
+      {% autoescape off %}{{ userbar_text }}{% endautoescape %}
     </div>
 {% endblock %}
 {% block header %}

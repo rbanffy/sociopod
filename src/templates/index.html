@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block contents %}
-<p>{{ hello }}</p>
+<ul id="featured">
+  {% for podcast in featured %}
+  <li class="">{{ podcast }}</li>
+  {% endfor %}
+</ul>
+
+<ul id="latest">
+  {% for episode in latest %}
+  <li class="">{{ episode }}</li>
+  {% endfor %}
+</ul>
 {% endblock %}

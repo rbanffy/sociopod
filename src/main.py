@@ -24,18 +24,32 @@ except ImportError:
 from models import *
 from forms import *
 
+USERBAR_TEMPLATE = '<p>Logged in as %s - <a href="/account_settings">settings</a> <a href="%s">logout</a></p>'
+USERBAR_ANON_TEMPLATE = '<p><a href="%s">login</a></p>'
+
 class MainHandler(webapp.RequestHandler):
     def get(self):
         """
         The home
         """
+        user = users.get_current_user()
+        
+        if user:
+            profile = Profile.get_by_user(user)
+            userbar = USERBAR_TEMPLATE % (user.nickname, users.create_logout_url('/')) 
+        else:
+            userbar = USERBAR_ANON_TEMPLATE % users.create_login_url('/')
+
+        template_values = {'userbar': userbar,
+                           'featured': ['a', 'list', 'of', 
+                                        'featured', 'episodes'],
+                           'latest': ['a', 'list', 'of', 
+                                      'latest', 'episodes']}
         path = os.path.join(os.path.dirname(__file__), 'templates/index.html')
-        self.response.out.write(template.render(path, {'hello': 'Hello webapp world'}))
+        self.response.out.write(template.render(path, template_values))
     
     def post(self):
         raise NotImplementedError
-
-
 
 def main():
     application = webapp.WSGIApplication([('/', MainHandler)],
