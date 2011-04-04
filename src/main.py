@@ -36,11 +36,15 @@ class MainHandler(webapp.RequestHandler):
         
         if user:
             profile = Profile.get_by_user(user)
-            userbar = USERBAR_TEMPLATE % (user.nickname, users.create_logout_url('/')) 
-        else:
-            userbar = USERBAR_ANON_TEMPLATE % users.create_login_url('/')
+            # debug_tools.setup()
+            # pdb.set_trace()
 
-        template_values = {'userbar': userbar,
+            # TODO: Use the profile's email hash to generate Gravatar avatars
+            userbar_text = USERBAR_TEMPLATE % (user.nickname(), users.create_logout_url('/')) 
+        else:
+            userbar_text = USERBAR_ANON_TEMPLATE % users.create_login_url('/')
+
+        template_values = {'userbar_text': userbar_text,
                            'featured': ['a', 'list', 'of', 
                                         'featured', 'episodes'],
                            'latest': ['a', 'list', 'of', 
