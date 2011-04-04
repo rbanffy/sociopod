@@ -30,7 +30,7 @@ class Profile(db.Model):
 
 
 
-class Feed(object):
+class Feed(db.Model):
     """
     A podcast feed
     """
@@ -64,7 +64,7 @@ class Comment(db.Model):
     A comment about an episode
     """
     episode = db.ReferenceProperty(Episode)
-    author = db.EmailProperty()
+    author = db.ReferenceProperty(Profile)
     contents = db.TextProperty()
     posted = db.DateTimeProperty(auto_now_add = True)
     karma = db.IntegerProperty()
@@ -96,9 +96,4 @@ class Comment(db.Model):
                     contents = contents)
         r.put()
         return r
-        
-
-    
-
-        
         
