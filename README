@@ -5,5 +5,5 @@ This is a discussion site centered on podcasts and their episodes. It runs on
 Google's App Engine platform and you can deploy your own if you change the 
 identifier in the app.yaml file.
 
-It's licensed under the Affero flavor of GPL to ensure no lock-in from any
-entity that decides to use it to build a social bookmarking system.
+It's licensed under the Affero flavor of GPL to ensure you can always roll your
+own.
